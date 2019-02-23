@@ -1,7 +1,27 @@
 import React from 'react';
 import './ImageLinkForm.css';
 
-const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
+const ImageLinkForm = ({
+  onInputChange,
+  onButtonSubmit,
+  userId,
+  setEntries
+}) => {
+  const onImageSubmit = () => {
+    fetch('http://localhost:3000/image', {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: userId })
+    })
+      .then(response => response.json())
+      .then(entry => {
+        if (entry) {
+          setEntries(entry);
+          onButtonSubmit();
+        }
+      }).catch(err => console.log(err));
+  };
+
   return (
     <div>
       <p className="f3">
@@ -16,7 +36,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
           />
           <button
             className="w-30 grow f4 link ph3 pv2 dib white bg-light-purple"
-            onClick={onButtonSubmit}
+            onClick={onImageSubmit}
           >
             Detect
           </button>
