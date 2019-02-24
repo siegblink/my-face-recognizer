@@ -8,7 +8,7 @@ const ImageLinkForm = ({
   setEntries
 }) => {
   const onImageSubmit = () => {
-    fetch('http://localhost:3000/image', {
+    fetch('https://nameless-depths-48950.herokuapp.com/image', {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: userId })
