@@ -2,9 +2,12 @@ import React from 'react';
 
 const Rank = ({ name, entries }) => {
   return (
-    <div>
-      {`${name}, your current entry count is...`}
-      <div className="white f1">{entries}</div>
+    <div className="rank-text">
+      {`${name}'s entry count is `}
+      <span className="entry">{entries}</span>
+      <span className="image-link-text">
+        {'Detect faces in your pictures. Try it.'}
+      </span>
     </div>
   );
 };

@@ -11,8 +11,7 @@ class SignIn extends Component {
 
   onEmailChange = event => this.setState({ signInEmail: event.target.value });
 
-  onPasswordChange = event =>
-    this.setState({ signInPassword: event.target.value });
+  onPasswordChange = event => this.setState({ signInPassword: event.target.value });
 
   onSubmitSignIn = () => {
     fetch('https://nameless-depths-48950.herokuapp.com/signin', {
@@ -36,8 +35,8 @@ class SignIn extends Component {
     const { onRouteChange } = this.props;
 
     return (
-      <div className="mt6">
-        <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+      <div className="form-wrapper">
+        <article className="form">
           <main className="pa4 black-80">
             <div className="measure">
               <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
@@ -67,19 +66,15 @@ class SignIn extends Component {
                   />
                 </div>
               </fieldset>
-              <div className="">
+              <div className="button-wrapper">
                 <input
                   onClick={this.onSubmitSignIn}
-                  className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                  className="signin-button"
                   type="submit"
                   value="Sign in"
                 />
-              </div>
-              <div className="lh-copy mt3">
-                <p
-                  onClick={() => onRouteChange('register')}
-                  className="f6 link dim black db pointer"
-                >
+
+                <p onClick={() => onRouteChange('register')} className="register-button">
                   Register
                 </p>
               </div>
