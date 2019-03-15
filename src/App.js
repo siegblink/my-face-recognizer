@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 
 import Navigation from './components/navigation/Navigation';
-import Logo from './components/logo/Logo';
 import Rank from './components/rank/Rank';
 import ImageLinkForm from './components/imageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/faceRecognition/FaceRecognition';
@@ -58,8 +57,7 @@ class App extends Component {
   };
 
   calculateFaceLocation = data => {
-    const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
 
     const image = document.getElementById('inputImage');
     const width = Number(image.width);
@@ -108,17 +106,10 @@ class App extends Component {
     return (
       <div className="App">
         <Particles className="particles" params={particlesOptions} />
-        <Navigation
-          isSignedIn={isSignedIn}
-          onRouteChange={this.onRouteChange}
-        />
+        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
         {route === 'home' ? (
           <div>
-            <Logo />
-            <Rank
-              name={this.state.user.name}
-              entries={this.state.user.entries}
-            />
+            <Rank name={this.state.user.name} entries={this.state.user.entries} />
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onSubmit}
@@ -130,10 +121,7 @@ class App extends Component {
         ) : route === 'signin' ? (
           <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
         ) : (
-          <Register
-            loadUser={this.loadUser}
-            onRouteChange={this.onRouteChange}
-          />
+          <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
         )}
       </div>
     );
