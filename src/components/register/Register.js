@@ -1,104 +1,76 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react'
+import { auth, createUserProfileDocument } from '../../firebase/firebase-utils'
+import './Register.css'
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      name: ''
-    };
+export default function Register(props) {
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+    displayName: '',
+  })
+
+  function handleChange(event) {
+    const { name, value } = event.target
+    setState({ ...state, [name]: value })
   }
 
-  onNameChange = event => this.setState({ name: event.target.value });
+  async function handleSubmit(event) {
+    const { email, password } = state
+    event.preventDefault()
+    try {
+      const { user } = auth.createUserWithEmailAndPassword(email, password)
+      await createUserProfileDocument(user, { displayName: state.displayName })
+      setState({ ...state, email: '', password: '', displayName: '' })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-  onEmailChange = event => this.setState({ email: event.target.value });
-
-  onPasswordChange = event => this.setState({ password: event.target.value });
-
-  onSubmitSignIn = () => {
-    const { email, password, name } = this.state;
-
-    fetch('https://nameless-depths-48950.herokuapp.com/register', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email,
-        password,
-        name
-      })
-    })
-      .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          this.props.loadUser(user);
-          this.props.onRouteChange('home');
-        }
-      });
-  };
-
-  render() {
-    return (
-      <div className='form-wrapper'>
-        <article className=' center'>
-          <main className='pa4 black-80'>
-            <div className='measure'>
-              <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
-                <legend className='f1 fw6 ph0 mh0'>Register</legend>
-                <div className='mt3'>
-                  <label className='db fw6 lh-copy f6' htmlFor='name'>
-                    Name
-                  </label>
-                  <input
-                    onChange={this.onNameChange}
-                    className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
-                    type='text'
-                    name='name'
-                    id='name'
-                  />
-                </div>
-                <div className='mt3'>
-                  <label
-                    className='db fw6 lh-copy f6'
-                    htmlFor='email-address'
-                  >
-                    Email
-                  </label>
-                  <input
-                    onChange={this.onEmailChange}
-                    className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
-                    type='email'
-                    name='email-address'
-                    id='email-address'
-                  />
-                </div>
-                <div className='mv3'>
-                  <label className='db fw6 lh-copy f6' htmlFor='password'>
-                    Password
-                  </label>
-                  <input
-                    onChange={this.onPasswordChange}
-                    className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
-                    type='password'
-                    name='password'
-                    id='password'
-                  />
-                </div>
-              </fieldset>
-              <div className=''>
-                <input
-                  onClick={this.onSubmitSignIn}
-                  className='b ph3 pv2 input-reset ba b--black bg-transparent pointer f6 dib'
-                  type='submit'
-                  value='Register'
-                />
-              </div>
+  return (
+    <main className='main-area'>
+      <div className='signup-area'>
+        <div className='signup-area__form-container'>
+          <h1 className='signup-area__header'>SmartBrain</h1>
+          <div className='signup-area__title'>
+            <h2 className='signup-area__text'>Sign Up</h2>
+          </div>
+          <form id='form' onSubmit={handleSubmit}>
+            <div className='signup-area__input-field'>
+              <input
+                className={`signup-area__text-field ${state.displayName ? 'has-value' : ''}`}
+                type='text'
+                name='displayName'
+                value={state.displayName}
+                onChange={handleChange}
+              />
+              <label className='signup-area__text-field-label'>Name</label>
             </div>
-          </main>
-        </article>
+            <div className='signup-area__input-field'>
+              <input
+                className={`signup-area__text-field ${state.email ? 'has-value' : ''}`}
+                type='email'
+                name='email'
+                value={state.email}
+                onChange={handleChange}
+              />
+              <label className='signup-area__text-field-label'>Email</label>
+            </div>
+            <div className='signup-area__input-field'>
+              <input
+                className={`signup-area__text-field ${state.password ? 'has-value' : ''}`}
+                type='password'
+                name='password'
+                value={state.password}
+                onChange={handleChange}
+              />
+              <label className='signup-area__text-field-label'>Password</label>
+            </div>
+            <div className='signup-area__input-field'>
+              <input className='signup-area__button' type='submit' value='Sign up' />
+            </div>
+          </form>
+        </div>
       </div>
-    )
-  }
+    </main>
+  )
 }
-
-export default Register;

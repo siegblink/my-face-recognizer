@@ -1,31 +1,27 @@
-import React from 'react';
-import Logo from '../../components/logo/Logo';
+import React from 'react'
+import Logo from '../../components/logo/Logo'
+import './Navigation.css'
 
-const Navigation = ({ onRouteChange, isSignedIn }) => {
-  if (isSignedIn) {
-    return (
-      <nav className="nav">
-        <Logo />
-        <p onClick={() => onRouteChange('signout')} className="nav-text">
-          Sign Out
-        </p>
-      </nav>
-    );
-  } else {
-    return (
-      <nav className="signin-nav-bar">
-        <Logo />
-        <div className="signin-nav-bar-wrapper">
-          <p onClick={() => onRouteChange('signin')} className="nav-text signin-text">
-            Sign In
-          </p>
-          <p onClick={() => onRouteChange('register')} className="nav-text register-text">
-            Register
-          </p>
-        </div>
-      </nav>
-    );
-  }
-};
-
-export default Navigation;
+export default function Navigation({ onRouteChange, isSignedIn }) {
+  return (
+    <nav className='nav'>
+      <Logo />
+      <div className='nav-options__wrapper'>
+        {isSignedIn ? (
+          <button className='nav-options__button' onClick={() => onRouteChange('signout')}>
+            Sign Out
+          </button>
+        ) : (
+          <div>
+            <button className='nav-options__button' onClick={() => onRouteChange('signin')}>
+              Sign In
+            </button>
+            <button className='nav-options__button' onClick={() => onRouteChange('register')}>
+              Register
+            </button>
+          </div>
+        )}
+      </div>
+    </nav>
+  )
+}

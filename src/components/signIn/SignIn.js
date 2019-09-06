@@ -1,89 +1,70 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react'
+import { auth } from '../../firebase/firebase-utils'
+import './SignIn.css'
 
-class SignIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      signInEmail: '',
-      signInPassword: ''
-    };
+export default function SignIn() {
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+  })
+
+  function handleChange(event) {
+    const { name, value } = event.target
+    setState({ ...state, [name]: value })
   }
 
-  onEmailChange = event => this.setState({ signInEmail: event.target.value });
+  async function handleSubmit(event) {
+    event.preventDefault()
+    const { email, password } = state
+    try {
+      await auth.signInWithEmailAndPassword(email, password)
+      setState({ ...state, email: '', password: '' })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-  onPasswordChange = event => this.setState({ signInPassword: event.target.value });
-
-  onSubmitSignIn = () => {
-    fetch('https://nameless-depths-48950.herokuapp.com/signin', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: this.state.signInEmail,
-        password: this.state.signInPassword
-      })
-    })
-      .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          this.props.loadUser(user);
-          this.props.onRouteChange('home');
-        }
-      });
-  };
-
-  render() {
-    const { onRouteChange } = this.props;
-
-    return (
-      <div className="form-wrapper">
-        <article className="form">
-          <main className="pa4 black-80">
-            <div className="measure">
-              <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                <legend className="f1 fw6 ph0 mh0">Sign In</legend>
-                <div className="mt3">
-                  <label className="db fw6 lh-copy f6" htmlFor="email-address">
-                    Email
-                  </label>
-                  <input
-                    onChange={this.onEmailChange}
-                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                    type="email"
-                    name="email-address"
-                    id="email-address"
-                  />
-                </div>
-                <div className="mv3">
-                  <label className="db fw6 lh-copy f6" htmlFor="password">
-                    Password
-                  </label>
-                  <input
-                    onChange={this.onPasswordChange}
-                    className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                    type="password"
-                    name="password"
-                    id="password"
-                  />
-                </div>
-              </fieldset>
-              <div className="button-wrapper">
-                <input
-                  onClick={this.onSubmitSignIn}
-                  className="signin-button"
-                  type="submit"
-                  value="Sign in"
-                />
-
-                <p onClick={() => onRouteChange('register')} className="register-button">
-                  Register
-                </p>
-              </div>
+  return (
+    <main className='main-area'>
+      <div className='sign-in-area'>
+        <div className='sign-in-area__form-container'>
+          <h1 className='sign-in-area__header'>SmartBrain</h1>
+          <div className='sign-in-area__title'>
+            <h2 className='sign-in-area__text'>Sign In</h2>
+          </div>
+          <form id='form' onSubmit={handleSubmit}>
+            <div className='sign-in-area__input-field'>
+              <input
+                className={`sign-in-area__text-field ${state.email.length ? 'has-value' : ''}`}
+                type='text'
+                name='email'
+                value={state.email}
+                onChange={handleChange}
+              />
+              <label className='sign-in-area__text-field-label'>Username</label>
             </div>
-          </main>
-        </article>
+            <div className='sign-in-area__input-field'>
+              <input
+                className={`sign-in-area__text-field ${state.password.length ? 'has-value' : ''}`}
+                type='password'
+                name='password'
+                value={state.password}
+                onChange={handleChange}
+              />
+              <label className='sign-in-area__text-field-label'>Password</label>
+            </div>
+            <div className='sign-in-area__input-field'>
+              <input className='sign-in-area__button' type='submit' value='Login' />
+            </div>
+          </form>
+        </div>
+        <div className='options-group'>
+          <div className='reset-password-and-sign-up'>
+            <button className='reset-password__button'>Reset Password</button>
+            <button className='sign-up__button'>Sign Up</button>
+          </div>
+        </div>
       </div>
-    );
-  }
+    </main>
+  )
 }
-
-export default SignIn;

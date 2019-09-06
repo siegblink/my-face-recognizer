@@ -1,16 +1,15 @@
-import React from 'react';
-import brain from './brain.png';
+import React from 'react'
+import brain from './brain.png'
+import './Logo.css'
 
-const Logo = () => {
+export default function Logo() {
   return (
-    <div className="img-wrapper">
-      <img className="logo-img" src={brain} alt="logo" />
-      <div className="logo-text-wrapper">
-        <div className="logo-text">Smart</div>
-        <div className="logo-text">Brain</div>
+    <div className='logo-container'>
+      <img className='logo' src={brain} alt='logo' />
+      <div className='logo__text-wrapper'>
+        <div className='logo__text'>Smart</div>
+        <div className='logo__text'>Brain</div>
       </div>
     </div>
-  );
-};
-
-export default Logo;
+  )
+}
