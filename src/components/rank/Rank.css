@@ -22,6 +22,10 @@
   font-weight: 300;
 }
 
+.header__welcome-text {
+  margin-bottom: 1.34rem;
+}
+
 .header__secondary-text {
   color: #fff;
 }
