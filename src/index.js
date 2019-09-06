@@ -1,16 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
-import Spinner from './Spinner'
 
 import './index.css'
 import App from './App'
-import 'tachyons'
 import * as serviceWorker from './serviceWorker'
 
 function Root() {
-  const [isLoading] = useState(false)
-  return isLoading ? <Spinner /> : <App />
+  return <App />
 }
 
 ReactDOM.render(
