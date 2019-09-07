@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { auth, createUserProfileDocument } from '../../firebase/firebase-utils'
+import { auth, firestore } from '../../firebase/firebase-utils'
+import md5 from 'md5'
 import './Register.css'
 
 export default function Register(props) {
   const [state, setState] = useState({
     email: '',
     password: '',
-    displayName: '',
+    name: '',
   })
 
   function handleChange(event) {
@@ -15,12 +16,26 @@ export default function Register(props) {
   }
 
   async function handleSubmit(event) {
-    const { email, password } = state
+    const { email, password, name } = state
     event.preventDefault()
     try {
-      const { user } = auth.createUserWithEmailAndPassword(email, password)
-      await createUserProfileDocument(user, { displayName: state.displayName })
-      setState({ ...state, email: '', password: '', displayName: '' })
+      const createdUser = await auth.createUserWithEmailAndPassword(email, password)
+      createdUser.user.updateProfile({
+        displayName: name,
+        photoURL: `http://gravatar.com/gravatar/${md5(createdUser.user.email)}?d=identicon`,
+      })
+      const userRef = firestore.collection('users').doc(`${createdUser.user.uid}`)
+      const snapshot = await userRef.get()
+      if (!snapshot.exists) {
+        const { email, displayName, photoURL } = createdUser.user
+        const dateCreated = new Date()
+        try {
+          await userRef.set({displayName, email, dateCreated, photoURL})
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      setState({ ...state, email: '', password: '', name: '' })
     } catch (error) {
       console.error(error)
     }
@@ -37,10 +52,10 @@ export default function Register(props) {
           <form id='form' onSubmit={handleSubmit}>
             <div className='signup-area__input-field'>
               <input
-                className={`signup-area__text-field ${state.displayName ? 'has-value' : ''}`}
+                className={`signup-area__text-field ${state.name ? 'has-value' : ''}`}
                 type='text'
-                name='displayName'
-                value={state.displayName}
+                name='name'
+                value={state.name}
                 onChange={handleChange}
               />
               <label className='signup-area__text-field-label'>Name</label>

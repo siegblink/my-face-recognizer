@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 // import Particles from 'react-particles-js'
-
 import Navigation from './components/navigation/Navigation'
 import Home from './components/home/Home'
 import SignIn from './components/signIn/SignIn'
 import Register from './components/register/Register'
-import { auth, createUserProfileDocument } from './firebase/firebase-utils'
 import './App.css'
 
 // const particlesOptions = {
@@ -21,30 +19,11 @@ import './App.css'
 //   },
 // }
 
-export default function App() {
-  const [user, setUser] = useState({})
-  useEffect(function() {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async function (userAuth) {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
-        userRef.onSnapshot(function (snapshot) {
-          console.log(snapshot.data())
-          setUser({ id: snapshot.id, ...snapshot.data() })
-        })
-      } else {
-        setUser(userAuth)
-      }
-    })
-    return function() {
-      unsubscribeFromAuth()
-    }
-  }, [])
-
-  console.log(user)
+export default function App(props) {
   return (
     <div className='App'>
       {/* <Particles className='particles' params={particlesOptions} /> */}
-      <Navigation />
+      <Navigation user={props.user} />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/signin' component={SignIn} />

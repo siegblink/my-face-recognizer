@@ -1,24 +1,26 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { auth } from '../../firebase/firebase-utils'
 import Logo from '../../components/logo/Logo'
 import './Navigation.css'
 
-export default function Navigation({ onRouteChange, isSignedIn }) {
+export default function Navigation(props) {
   return (
     <nav className='nav'>
       <Logo />
       <div className='nav-options__wrapper'>
-        {isSignedIn ? (
-          <button className='nav-options__button' onClick={() => onRouteChange('signout')}>
+        {props.isSignedIn ? (
+          <button className='nav-options__button' onClick={() => auth.signOut()}>
             Sign Out
           </button>
         ) : (
           <div>
-            <button className='nav-options__button' onClick={() => onRouteChange('signin')}>
+            <Link to='/signin' className='nav-options__button'>
               Sign In
-            </button>
-            <button className='nav-options__button' onClick={() => onRouteChange('register')}>
+            </Link>
+            <Link to='/signup' className='nav-options__button'>
               Register
-            </button>
+            </Link>
           </div>
         )}
       </div>

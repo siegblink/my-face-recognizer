@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
+
 .nav {
   display: flex;
   justify-content: space-between;
@@ -11,6 +13,8 @@
 
 .nav-options__button {
   font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
   background-color: transparent;
   padding: .5rem 1rem;
   border: 1px solid #fff;
