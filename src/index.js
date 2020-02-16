@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import { auth, firestore } from './firebase/firebase-utils'
@@ -6,33 +6,44 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-function Root(props) {
+function Root({ history }) {
   const [user, setUser] = useState({})
   const [isSignedIn, setIsSignedIn] = useState(false)
-  useEffect(function() {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async function(userAuth) {
+
+  const loadData = useCallback(
+    async function(userAuth) {
       if (userAuth) {
         const userRef = firestore.collection('users').doc(`${userAuth.uid}`)
         userRef.onSnapshot(function(snapshot) {
           setUser({ id: snapshot.id, ...snapshot.data() })
         })
         setIsSignedIn(true)
-        props.history.push('/')
+        history.push('/')
       } else {
         setUser({})
         setIsSignedIn(false)
-        props.history.push('/signin')
+        history.push('/signin')
       }
-    })
-    return function () {
-      unsubscribeFromAuth()
-    }
-  }, [])
-  
+    },
+    [history]
+  )
+
+  useEffect(
+    function() {
+      const unsubscribeFromAuth = auth.onAuthStateChanged(loadData)
+      return function() {
+        unsubscribeFromAuth()
+      }
+    },
+    [loadData]
+  )
+
+  console.log(user)
   return <App user={user} isSignedIn={isSignedIn} />
 }
 
 const RootWithAuth = withRouter(Root)
+
 ReactDOM.render(
   <Router>
     <RootWithAuth />
