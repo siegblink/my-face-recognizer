@@ -8,6 +8,8 @@ import './index.css'
 import * as serviceWorker from './serviceWorker'
 
 const Container = styled.body`
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
+
   margin: 0;
   padding: 0;
   font-family: 'Roboto Condensed', sans-serif;
