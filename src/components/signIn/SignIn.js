@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { auth } from '../../firebase/firebase-utils'
 import './SignIn.css'
 
-export default function SignIn() {
+export default function SignIn(props) {
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -35,7 +35,9 @@ export default function SignIn() {
           <form id='form' onSubmit={handleSubmit}>
             <div className='sign-in-area__input-field'>
               <input
-                className={`sign-in-area__text-field ${state.email.length ? 'has-value' : ''}`}
+                className={`sign-in-area__text-field ${
+                  state.email.length ? 'has-value' : ''
+                }`}
                 type='text'
                 name='email'
                 value={state.email}
@@ -45,7 +47,9 @@ export default function SignIn() {
             </div>
             <div className='sign-in-area__input-field'>
               <input
-                className={`sign-in-area__text-field ${state.password.length ? 'has-value' : ''}`}
+                className={`sign-in-area__text-field ${
+                  state.password.length ? 'has-value' : ''
+                }`}
                 type='password'
                 name='password'
                 value={state.password}
@@ -54,14 +58,24 @@ export default function SignIn() {
               <label className='sign-in-area__text-field-label'>Password</label>
             </div>
             <div className='sign-in-area__input-field'>
-              <input className='sign-in-area__button' type='submit' value='Login' />
+              <input
+                className='sign-in-area__button'
+                type='submit'
+                value='Login'
+              />
             </div>
           </form>
         </div>
         <div className='options-group'>
           <div className='reset-password-and-sign-up'>
             <button className='reset-password__button'>Reset Password</button>
-            <button className='sign-up__button'>Sign Up</button>
+            <button
+              className='sign-up__button'
+              onClick={() => {
+                props.history.push('/signup')
+              }}>
+              Sign Up
+            </button>
           </div>
         </div>
       </div>

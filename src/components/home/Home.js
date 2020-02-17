@@ -1,12 +1,14 @@
 import React from 'react'
 import Rank from '../rank/Rank'
-// import ImageLinkForm from '../imageLinkForm/ImageLinkForm'
-// import FaceRecognition from '../faceRecognition/FaceRecognition'
+import FaceRecognition from '../faceRecognition/FaceRecognition'
+import ImageLinkForm from '../imageLinkForm/ImageLinkForm'
 
 export default function Home(props) {
   return (
-    <div>
+    <React.Fragment>
       <Rank />
-    </div>
+      <ImageLinkForm />
+      <FaceRecognition />
+    </React.Fragment>
   )
 }

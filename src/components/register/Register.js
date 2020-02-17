@@ -18,23 +18,34 @@ export default function Register(props) {
   async function handleSubmit(event) {
     const { email, password, name } = state
     event.preventDefault()
+
     try {
-      const createdUser = await auth.createUserWithEmailAndPassword(email, password)
+      const createdUser = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      )
       createdUser.user.updateProfile({
         displayName: name,
-        photoURL: `http://gravatar.com/gravatar/${md5(createdUser.user.email)}?d=identicon`,
+        photoURL: `http://gravatar.com/gravatar/${md5(
+          createdUser.user.email
+        )}?d=identicon`,
       })
-      const userRef = firestore.collection('users').doc(`${createdUser.user.uid}`)
+
+      const userRef = firestore
+        .collection('users')
+        .doc(`${createdUser.user.uid}`)
       const snapshot = await userRef.get()
+
       if (!snapshot.exists) {
         const { email, displayName, photoURL } = createdUser.user
         const dateCreated = new Date()
         try {
-          await userRef.set({displayName, email, dateCreated, photoURL})
+          await userRef.set({ displayName, email, dateCreated, photoURL })
         } catch (error) {
           console.error(error)
         }
       }
+
       setState({ ...state, email: '', password: '', name: '' })
     } catch (error) {
       console.error(error)
@@ -52,7 +63,9 @@ export default function Register(props) {
           <form id='form' onSubmit={handleSubmit}>
             <div className='signup-area__input-field'>
               <input
-                className={`signup-area__text-field ${state.name ? 'has-value' : ''}`}
+                className={`signup-area__text-field ${
+                  state.name ? 'has-value' : ''
+                }`}
                 type='text'
                 name='name'
                 value={state.name}
@@ -62,7 +75,9 @@ export default function Register(props) {
             </div>
             <div className='signup-area__input-field'>
               <input
-                className={`signup-area__text-field ${state.email ? 'has-value' : ''}`}
+                className={`signup-area__text-field ${
+                  state.email ? 'has-value' : ''
+                }`}
                 type='email'
                 name='email'
                 value={state.email}
@@ -72,7 +87,9 @@ export default function Register(props) {
             </div>
             <div className='signup-area__input-field'>
               <input
-                className={`signup-area__text-field ${state.password ? 'has-value' : ''}`}
+                className={`signup-area__text-field ${
+                  state.password ? 'has-value' : ''
+                }`}
                 type='password'
                 name='password'
                 value={state.password}
@@ -81,7 +98,11 @@ export default function Register(props) {
               <label className='signup-area__text-field-label'>Password</label>
             </div>
             <div className='signup-area__input-field'>
-              <input className='signup-area__button' type='submit' value='Sign up' />
+              <input
+                className='signup-area__button'
+                type='submit'
+                value='Sign up'
+              />
             </div>
           </form>
         </div>

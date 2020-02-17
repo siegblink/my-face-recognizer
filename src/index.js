@@ -32,7 +32,7 @@ function Root({ history }) {
     function() {
       const unsubscribeFromAuth = auth.onAuthStateChanged(loadData)
       return function() {
-        unsubscribeFromAuth()
+        if (unsubscribeFromAuth) unsubscribeFromAuth()
       }
     },
     [loadData]
