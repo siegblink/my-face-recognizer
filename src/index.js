@@ -1,10 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import ReactDOM from 'react-dom'
+import styled from 'styled-components'
 import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import { auth, firestore } from './firebase/firebase-utils'
-import './index.css'
 import App from './App'
+import './index.css'
 import * as serviceWorker from './serviceWorker'
+
+const Container = styled.body`
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Condensed', sans-serif;
+  background: linear-gradient(89.94deg, #7491f8 0.03%, #8633f0 99.35%);
+  color: #444;
+`
 
 function Root({ history }) {
   const [user, setUser] = useState({})
@@ -39,7 +48,11 @@ function Root({ history }) {
   )
 
   console.log(user)
-  return <App user={user} isSignedIn={isSignedIn} />
+  return (
+    <Container>
+      <App user={user} isSignedIn={isSignedIn} />
+    </Container>
+  )
 }
 
 const RootWithAuth = withRouter(Root)
