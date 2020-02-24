@@ -65,6 +65,7 @@ const Button = styled.a`
   font-weight: 600;
   height: 48px;
   margin-bottom: 8px;
+  ${props => props.google && `margin-bottom: 40px;`}
   padding: 0;
   background-color: #1a538a;
   ${props => props.google && `background-color: #fff; color: #29303b;`}
@@ -157,7 +158,7 @@ const ButtonContainer = styled.div`
 const SubmitRow = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.43;
   color: #29303b;
   box-sizing: border-box;
@@ -181,8 +182,8 @@ const SubmitButton = styled.input`
   line-height: 1.35135;
   border-radius: 2px;
   user-select: none;
-  color: #fadcdc;
-  background-color: #ec5252;
+  color: #bff5ab;
+  background-color: #2a820a;
   border: 1px solid transparent;
   -webkit-appearance: button;
   cursor: pointer;
@@ -196,7 +197,7 @@ const SubmitButton = styled.input`
 const ForgotPassword = styled.a`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.43;
   text-align: center;
   box-sizing: border-box;
@@ -210,7 +211,7 @@ const ForgotPassword = styled.a`
 const LoginBoxFooter = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.43;
   color: #29303b;
   box-sizing: border-box;
@@ -222,7 +223,7 @@ const LoginBoxFooter = styled.div`
 const SignUp = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.43;
   text-align: center;
   box-sizing: border-box;

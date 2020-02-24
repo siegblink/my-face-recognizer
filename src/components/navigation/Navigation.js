@@ -22,6 +22,10 @@ const Nav = styled.nav`
   justify-content: space-between;
 `
 
+const LogoText = styled.span`
+  color: #2a820a;
+`
+
 const ButtonWrapper = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
@@ -65,7 +69,7 @@ export default function Navigation(props) {
   return (
     <Nav>
       <div>
-        <GiBrain /> SmartBrain
+        <GiBrain color='#67c744' /> <LogoText>SmartBrain</LogoText>
       </div>
       {props.isSignedIn ? (
         <ButtonWrapper as={Link} onClick={() => auth.signOut()}>
