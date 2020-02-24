@@ -7,8 +7,8 @@ export default function Home(props) {
   return (
     <React.Fragment>
       <Rank />
-      <ImageLinkForm />
-      <FaceRecognition />
+      {/* <ImageLinkForm /> */}
+      {/* <FaceRecognition /> */}
     </React.Fragment>
   )
 }
