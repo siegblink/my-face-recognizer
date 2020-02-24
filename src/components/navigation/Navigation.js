@@ -16,7 +16,7 @@ const Nav = styled.nav`
   position: relative;
   align-items: center;
   display: flex;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.4;
   font-size: 1.4rem;
   justify-content: space-between;
@@ -51,13 +51,13 @@ const Button = styled.a`
   vertical-align: bottom;
   color: #0f7c90;
   background-color: transparent;
-  ${props => props.signup && `background-color: #0f7c90; color: #fff;`}
+  ${props => props.signup && `background-color: #0f7c90; color: #d0eaef;`}
   border: 1px solid #dcdacb;
   height: 3rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: inherit;
 `
 

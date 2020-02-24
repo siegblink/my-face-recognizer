@@ -31,13 +31,14 @@ const LoginHeader = styled.div`
   -webkit-tap-highlight-color: transparent;
   line-height: 1.43;
   box-sizing: border-box;
-  border-bottom: solid 1px #dedfe0;
+  /* border-bottom: solid 1px #dedfe0; */
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   color: #29303b;
   display: block;
-  font-size: 18px;
-  padding: 24px 110px 24px 24px;
+  font-size: 30px;
+  padding: 24px 24px 0px 24px;
+  text-align: initial;
 `
 
 const InnerLoginBox = styled.div`
@@ -58,9 +59,9 @@ const Button = styled.a`
   text-decoration: none;
   box-shadow: 0 2px 2px 0 rgba(41, 48, 59, 0.24),
     0 0 2px 0 rgba(41, 48, 59, 0.12);
-  color: #fff;
+  color: #b3d9fc;
   border-radius: 2px;
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 600;
   height: 48px;
   margin-bottom: 8px;
@@ -133,7 +134,7 @@ const Input = styled.input`
   transition: border-color ease-in-out 0.08s, box-shadow ease-in-out 0.08s;
   border-radius: 5px;
   color: #29303b;
-  font-size: 18px;
+  font-size: 16px;
   height: auto;
   padding: 11px 45px 12px 14px;
   background-repeat: no-repeat;
@@ -180,15 +181,15 @@ const SubmitButton = styled.input`
   line-height: 1.35135;
   border-radius: 2px;
   user-select: none;
-  color: #fff;
+  color: #fadcdc;
   background-color: #ec5252;
   border: 1px solid transparent;
   -webkit-appearance: button;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   height: 48px;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
   width: 100%;
 `
 
@@ -258,12 +259,12 @@ export default function SignIn(props) {
   return (
     <MainContent>
       <LoginBox>
-        <LoginHeader>Log in to your SmartBrain account!</LoginHeader>
+        <LoginHeader>Log in to SmartBrain</LoginHeader>
         <InnerLoginBox>
           <div>
             <Button>
               <LogoWrapper>
-                <FaFacebookF />
+                <FaFacebookF color='#b3d9fc' />
               </LogoWrapper>
               Continue with Facebook
             </Button>
@@ -283,7 +284,7 @@ export default function SignIn(props) {
             </div>
           </FormField>
           <FormField>
-            <Label>Email</Label>
+            <Label>Password</Label>
             <div>
               <Input placeholder='Password' />
             </div>

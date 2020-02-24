@@ -8,16 +8,12 @@ import './index.css'
 import * as serviceWorker from './serviceWorker'
 
 const Container = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
 
   margin: 0;
   padding: 0;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: #444;
-  /* background: linear-gradient(89.94deg, #7491f8 0.03%, #8633f0 99.35%); */
-  /* display: flex;
-  flex-direction: 'column';
-  flex: 1; */
 `
 
 function Root({ history }) {
