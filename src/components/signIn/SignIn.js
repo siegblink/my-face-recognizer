@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { FaFacebookF, FaGoogle, FaEnvelope } from 'react-icons/fa'
+import { Button, FormField } from '../common'
+import { FaFacebookF, FaGoogle } from 'react-icons/fa'
 import { auth } from '../../firebase/firebase-utils'
 
 const MainContent = styled.div`
@@ -49,100 +50,6 @@ const InnerLoginBox = styled.div`
   color: #29303b;
   box-sizing: border-box;
   padding: 24px 24px 16px;
-`
-
-const Button = styled.a`
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-  line-height: 1.43;
-  box-sizing: border-box;
-  text-decoration: none;
-  box-shadow: 0 2px 2px 0 rgba(41, 48, 59, 0.24),
-    0 0 2px 0 rgba(41, 48, 59, 0.12);
-  color: #b3d9fc;
-  border-radius: 2px;
-  font-size: 16px;
-  font-weight: 600;
-  height: 48px;
-  margin-bottom: 8px;
-  ${props => props.google && `margin-bottom: 40px;`}
-  padding: 0;
-  background-color: #1a538a;
-  ${props => props.google && `background-color: #fff; color: #29303b;`}
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-`
-
-const LogoWrapper = styled.span`
-  -webkit-tap-highlight-color: transparent;
-  color: #fff;
-  box-sizing: border-box;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  vertical-align: -8%;
-  display: inline-block;
-  font-size: 20px;
-  padding: 16px 0;
-  text-align: center;
-  width: 48px;
-`
-
-const FormField = styled.div`
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-  line-height: 1.43;
-  color: #29303b;
-  box-sizing: border-box;
-  margin-bottom: 8px;
-  position: relative;
-`
-
-const Label = styled.label`
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-  font-size: 15px;
-  line-height: 1.43;
-  color: #29303b;
-  box-sizing: border-box;
-  display: inline-block;
-  max-width: 100%;
-  font-weight: 400;
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-`
-
-const Input = styled.input`
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-  box-sizing: border-box;
-  font: inherit;
-  font-family: inherit;
-  margin: 0;
-  display: block;
-  width: 100%;
-  line-height: 1.43;
-  background-color: #fff;
-  border: 1px solid #8a92a3;
-  box-shadow: none;
-  transition: border-color ease-in-out 0.08s, box-shadow ease-in-out 0.08s;
-  border-radius: 5px;
-  color: #29303b;
-  font-size: 16px;
-  height: auto;
-  padding: 11px 45px 12px 14px;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: 16px 18px;
-  background-position: 98% 50%;
-  cursor: auto;
 `
 
 const ButtonContainer = styled.div`
@@ -262,37 +169,29 @@ export default function SignIn(props) {
       <LoginBox>
         <LoginHeader>Log in to SmartBrain</LoginHeader>
         <InnerLoginBox>
-          <div>
-            <Button>
-              <LogoWrapper>
-                <FaFacebookF color='#b3d9fc' />
-              </LogoWrapper>
-              Continue with Facebook
-            </Button>
-          </div>
-          <div>
-            <Button google>
-              <LogoWrapper google>
-                <FaGoogle color='#29303b' />
-              </LogoWrapper>
-              Continue with Google
-            </Button>
-          </div>
-          <FormField>
-            <Label>Email</Label>
-            <div>
-              <Input placeholder='Email' />
-            </div>
-          </FormField>
-          <FormField>
-            <Label>Password</Label>
-            <div>
-              <Input placeholder='Password' />
-            </div>
-          </FormField>
+          <Button text='Continue with Facebook'>
+            <FaFacebookF color='#b3d9fc' />
+          </Button>
+          <Button google text='Continue with Google'>
+            <FaGoogle color='#29303b' />
+          </Button>
+          <FormField
+            label='Email'
+            placeholder='Email'
+            name='email'
+            value={state.email}
+            onChange={handleChange}
+          />
+          <FormField
+            label='Password'
+            placeholder='Password'
+            name='password'
+            value={state.password}
+            onChange={handleChange}
+          />
           <ButtonContainer>
             <SubmitRow>
-              <SubmitButton type='button' value='Log in' />
+              <SubmitButton type='button' value='Log in' onSubmit={handleSubmit} />
               <span>or</span> <ForgotPassword>Forgot password</ForgotPassword>
             </SubmitRow>
           </ButtonContainer>

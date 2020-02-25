@@ -24,6 +24,7 @@ const Nav = styled.nav`
 
 const LogoText = styled.span`
   color: #2a820a;
+  cursor: pointer;
 `
 
 const ButtonWrapper = styled.div`
