@@ -6,7 +6,7 @@ import { GiBrain } from 'react-icons/gi'
 import { FormField } from '../common'
 import { auth } from '../../firebase/firebase-utils'
 
-const MainContent = styled.div`
+export const MainContent = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 15px;
@@ -16,7 +16,7 @@ const MainContent = styled.div`
   flex: 1 0 auto;
 `
 
-const LoginBox = styled.div`
+export const LoginBox = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 15px;
@@ -29,7 +29,7 @@ const LoginBox = styled.div`
   width: 380px;
 `
 
-const LoginHeader = styled.div`
+export const LoginHeader = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   line-height: 1.43;
@@ -44,7 +44,7 @@ const LoginHeader = styled.div`
   text-align: initial;
 `
 
-const InnerLoginBox = styled.div`
+export const InnerLoginBox = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 16px;
@@ -54,7 +54,7 @@ const InnerLoginBox = styled.div`
   padding: 24px 24px 16px;
 `
 
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 18px;
@@ -64,7 +64,7 @@ const ButtonContainer = styled.div`
   margin: 0 0 16px;
 `
 
-const SubmitRow = styled.div`
+export const SubmitRow = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 16px;
@@ -74,7 +74,7 @@ const SubmitRow = styled.div`
   text-align: center;
 `
 
-const SubmitButton = styled.input`
+export const SubmitButton = styled.input`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
@@ -103,7 +103,7 @@ const SubmitButton = styled.input`
   width: 100%;
 `
 
-const ForgotPassword = styled.a`
+export const ForgotPassword = styled.a`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 16px;
@@ -117,7 +117,7 @@ const ForgotPassword = styled.a`
   cursor: pointer;
 `
 
-const LoginBoxFooter = styled.div`
+export const LoginBoxFooter = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 16px;
@@ -129,7 +129,7 @@ const LoginBoxFooter = styled.div`
   justify-content: center;
 `
 
-const SignUp = styled.div`
+export const SignUp = styled.div`
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-size: 16px;
