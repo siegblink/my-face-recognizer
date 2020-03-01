@@ -100,6 +100,7 @@ export const SubmitButton = styled.input`
   font-weight: 600;
   height: 48px;
   margin-bottom: 30px;
+  ${props => props.removeBottomMargin && `margin-bottom: 0px;`}
   width: 100%;
 `
 

@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
+import { GiBrain } from 'react-icons/gi'
+import { MainContent, LoginBox} from '../signIn/SignIn'
+import { LoginHeader, InnerLoginBox } from '../signIn/SignIn'
+import { ButtonContainer, SubmitRow } from '../signIn/SignIn'
+import { SubmitButton } from '../signIn/SignIn'
+import { LoginBoxFooter, SignUp } from '../signIn/SignIn'
+import { FormField } from '../common'
 import { auth, firestore } from '../../firebase/firebase-utils'
 import md5 from 'md5'
-import './Register.css'
 
 export default function Register(props) {
   const [state, setState] = useState({
@@ -53,60 +59,47 @@ export default function Register(props) {
   }
 
   return (
-    <main className='main-area'>
-      <div className='signup-area'>
-        <div className='signup-area__form-container'>
-          <h1 className='signup-area__header'>SmartBrain</h1>
-          <div className='signup-area__title'>
-            <h2 className='signup-area__text'>Sign Up</h2>
-          </div>
-          <form id='form' onSubmit={handleSubmit}>
-            <div className='signup-area__input-field'>
-              <input
-                className={`signup-area__text-field ${
-                  state.name ? 'has-value' : ''
-                }`}
-                type='text'
-                name='name'
-                value={state.name}
-                onChange={handleChange}
+    <MainContent>
+      <LoginBox>
+        <GiBrain color='#67c744' size='10em' />
+        <LoginHeader>Get an account.</LoginHeader>
+        <InnerLoginBox>
+          <FormField
+            label='Name'
+            placeholder='Full name'
+            name='name'
+            // value={state.email}
+            // onChange={handleChange}
+          />
+          <FormField
+            label='Email'
+            placeholder='Email'
+            name='email'
+            // value={state.email}
+            // onChange={handleChange}
+          />
+          <FormField
+            label='Password'
+            placeholder='Password'
+            name='password'
+            // value={state.password}
+            // onChange={handleChange}
+          />
+          <ButtonContainer>
+            <SubmitRow>
+              <SubmitButton
+                removeBottomMargin
+                type='button'
+                value='Continue'
+                // onSubmit={handleSubmit}
               />
-              <label className='signup-area__text-field-label'>Name</label>
-            </div>
-            <div className='signup-area__input-field'>
-              <input
-                className={`signup-area__text-field ${
-                  state.email ? 'has-value' : ''
-                }`}
-                type='email'
-                name='email'
-                value={state.email}
-                onChange={handleChange}
-              />
-              <label className='signup-area__text-field-label'>Email</label>
-            </div>
-            <div className='signup-area__input-field'>
-              <input
-                className={`signup-area__text-field ${
-                  state.password ? 'has-value' : ''
-                }`}
-                type='password'
-                name='password'
-                value={state.password}
-                onChange={handleChange}
-              />
-              <label className='signup-area__text-field-label'>Password</label>
-            </div>
-            <div className='signup-area__input-field'>
-              <input
-                className='signup-area__button'
-                type='submit'
-                value='Sign up'
-              />
-            </div>
-          </form>
-        </div>
-      </div>
-    </main>
+            </SubmitRow>
+          </ButtonContainer>
+        </InnerLoginBox>
+        <LoginBoxFooter>
+          Already have an account? <SignUp>Sign in</SignUp>
+        </LoginBoxFooter>
+      </LoginBox>
+    </MainContent>
   )
 }
