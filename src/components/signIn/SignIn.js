@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, FormField } from '../common'
-import { FaFacebookF, FaGoogle } from 'react-icons/fa'
+import { GiBrain } from 'react-icons/gi'
+// import { Button } from '../common'
+// import { FaFacebookF, FaGoogle } from 'react-icons/fa'
+import { FormField } from '../common'
 import { auth } from '../../firebase/firebase-utils'
 
 const MainContent = styled.div`
@@ -167,14 +169,18 @@ export default function SignIn(props) {
   return (
     <MainContent>
       <LoginBox>
+        <GiBrain color='#67c744' size='10em' />
         <LoginHeader>Log in to SmartBrain</LoginHeader>
         <InnerLoginBox>
-          <Button text='Continue with Facebook'>
+          {/* <Button text='Continue with Facebook'>
             <FaFacebookF color='#b3d9fc' />
           </Button>
           <Button google text='Continue with Google'>
             <FaGoogle color='#29303b' />
-          </Button>
+          </Button> */}
+          {/* <div>
+            <GiBrain color='#67c744' />
+          </div> */}
           <FormField
             label='Email'
             placeholder='Email'
@@ -191,7 +197,11 @@ export default function SignIn(props) {
           />
           <ButtonContainer>
             <SubmitRow>
-              <SubmitButton type='button' value='Log in' onSubmit={handleSubmit} />
+              <SubmitButton
+                type='button'
+                value='Log in'
+                onSubmit={handleSubmit}
+              />
               <span>or</span> <ForgotPassword>Forgot password</ForgotPassword>
             </SubmitRow>
           </ButtonContainer>
