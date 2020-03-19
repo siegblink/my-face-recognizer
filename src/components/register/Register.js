@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { GiBrain } from 'react-icons/gi'
-import { MainContent, LoginBox} from '../signIn/SignIn'
+import { MainContent, LoginBox } from '../signIn/SignIn'
 import { LoginHeader, InnerLoginBox } from '../signIn/SignIn'
 import { ButtonContainer, SubmitRow } from '../signIn/SignIn'
 import { SubmitButton } from '../signIn/SignIn'
@@ -85,6 +85,13 @@ export default function Register(props) {
             // value={state.password}
             // onChange={handleChange}
           />
+          <FormField
+            label='Password'
+            placeholder='Confirm password'
+            name='password'
+            // value={state.password}
+            // onChange={handleChange}
+          />
           <ButtonContainer>
             <SubmitRow>
               <SubmitButton
@@ -97,7 +104,8 @@ export default function Register(props) {
           </ButtonContainer>
         </InnerLoginBox>
         <LoginBoxFooter>
-          Already have an account? <SignUp>Sign in</SignUp>
+          Already have an account?{' '}
+          <SignUp onClick={() => props.history.push('/signin')}>Sign in</SignUp>
         </LoginBoxFooter>
       </LoginBox>
     </MainContent>

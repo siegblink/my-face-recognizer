@@ -171,7 +171,9 @@ export default function SignIn(props) {
     <MainContent>
       <LoginBox>
         <GiBrain color='#67c744' size='10em' />
-        <LoginHeader>Log in to SmartBrain</LoginHeader>
+        <LoginHeader>
+          Log in to SmartBrain
+        </LoginHeader>
         <InnerLoginBox>
           {/* <Button text='Continue with Facebook'>
             <FaFacebookF color='#b3d9fc' />
@@ -203,12 +205,16 @@ export default function SignIn(props) {
                 value='Log in'
                 onSubmit={handleSubmit}
               />
-              <span>or</span> <ForgotPassword>Forgot password</ForgotPassword>
+              <span>or</span>{' '}
+              <ForgotPassword onClick={() => {}}>
+                Forgot password
+              </ForgotPassword>
             </SubmitRow>
           </ButtonContainer>
         </InnerLoginBox>
         <LoginBoxFooter>
-          Don't have an account? <SignUp>Sign up</SignUp>
+          Don't have an account?
+          <SignUp onClick={() => props.history.push('/signup')}>Sign up</SignUp>
         </LoginBoxFooter>
       </LoginBox>
     </MainContent>

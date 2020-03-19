@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GiBrain } from 'react-icons/gi'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { auth } from '../../firebase/firebase-utils'
 
 const Nav = styled.nav`
@@ -66,11 +66,14 @@ const Button = styled.a`
   font-family: inherit;
 `
 
-export default function Navigation(props) {
+function Navigation(props) {
   return (
     <Nav>
       <div>
-        <GiBrain color='#67c744' /> <LogoText>SmartBrain</LogoText>
+        <GiBrain color='#67c744' />{' '}
+        <LogoText onClick={() => props.history.push('/signin')}>
+          SmartBrain
+        </LogoText>
       </div>
       {props.isSignedIn ? (
         <ButtonWrapper as={Link} onClick={() => auth.signOut()}>
@@ -89,3 +92,5 @@ export default function Navigation(props) {
     </Nav>
   )
 }
+
+export default withRouter(Navigation)
