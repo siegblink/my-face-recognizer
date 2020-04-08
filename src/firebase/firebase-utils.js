@@ -3,15 +3,16 @@ import 'firebase/firestore'
 import 'firebase/auth'
 import firebaseConfig from './firebase-config'
 
-const firebaseui = require('firebaseui')
+// Import Firebase UI -- but for now this is not needed
+// const firebaseui = require('firebaseui')
 
 // Initialize firebase
 firebase.initializeApp(firebaseConfig)
 
 // Initialize Firebase authentication
 export const auth = firebase.auth()
-// Initialize Firebase UI
-export const ui = new firebaseui.auth.AuthUI(firebase.auth())
+// Initialize Firebase UI -- but for now this is not needed
+// export const ui = new firebaseui.auth.AuthUI(firebase.auth())
 
 // Initialize database with Firebase Firestore
 export const firestore = firebase.firestore()
@@ -25,7 +26,9 @@ export function signInWithGoogle() {
   auth.signInWithPopup(provider)
 }
 
-// Declare a function that can create a user profile
+export default firebase
+
+// Declare a function that can create a user profile -- but for now this is not needed
 // export async function createUserProfileDocument(userAuth, additionalData) {
 //   if (!userAuth) return
 //   const userRef = firestore.doc(`users/${userAuth.uid}`)
@@ -41,5 +44,3 @@ export function signInWithGoogle() {
 //   }
 //   return userRef
 // }
-
-export default firebase
