@@ -1,9 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
 import firebase from 'firebase/app'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import { Route } from 'react-router-dom'
+import Loader from 'react-loader-spinner'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
-export default function SignIn(props) {
+const Container = styled.div`
+  padding-top: 200px;
+`
+
+export default function SignIn() {
   const [loading, setLoading] = React.useState(true)
 
   const uiConfig = {
@@ -25,9 +31,13 @@ export default function SignIn(props) {
   }
 
   return (
-    <Route path='/signin'>
+    <Container>
+      {loading && (
+        <div id='loading'>
+          <Loader type='Bars' color='#67c744' height={80} width={80} />
+        </div>
+      )}
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      {loading && <div id='loading'>Loading...</div>}
-    </Route>
+    </Container>
   )
 }
