@@ -21,10 +21,10 @@ function Root({ history }) {
   const [isSignedIn, setIsSignedIn] = useState(false)
 
   const loadData = useCallback(
-    async function(userAuth) {
+    async function (userAuth) {
       if (userAuth) {
         const userRef = firestore.collection('users').doc(`${userAuth.uid}`)
-        userRef.onSnapshot(function(snapshot) {
+        userRef.onSnapshot(function (snapshot) {
           setUser({ id: snapshot.id, ...snapshot.data() })
         })
         setIsSignedIn(true)
@@ -39,9 +39,9 @@ function Root({ history }) {
   )
 
   useEffect(
-    function() {
+    function () {
       const unsubscribeFromAuth = auth.onAuthStateChanged(loadData)
-      return function() {
+      return function () {
         if (unsubscribeFromAuth) unsubscribeFromAuth()
       }
     },
@@ -59,9 +59,11 @@ function Root({ history }) {
 const RootWithAuth = withRouter(Root)
 
 ReactDOM.render(
-  <Router>
-    <RootWithAuth />
-  </Router>,
+  <React.StrictMode>
+    <Router>
+      <RootWithAuth />
+    </Router>
+  </React.StrictMode>,
   document.getElementById('root')
 )
 
