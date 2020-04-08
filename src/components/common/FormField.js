@@ -64,6 +64,7 @@ export function FormField(props) {
       <div>
         <Input
           placeholder={props.placeholder}
+          type={props.type}
           name={props.name}
           value={props.value}
           onChange={props.onChange}

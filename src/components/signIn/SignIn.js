@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Route } from 'react-router-dom'
 import styled from 'styled-components'
 import { GiBrain } from 'react-icons/gi'
 // import { Button } from '../common'
 // import { FaFacebookF, FaGoogle } from 'react-icons/fa'
 import { FormField } from '../common'
-import { auth } from '../../firebase/firebase-utils'
+
 
 export const MainContent = styled.div`
   -webkit-font-smoothing: antialiased;
@@ -100,7 +101,7 @@ export const SubmitButton = styled.input`
   font-weight: 600;
   height: 48px;
   margin-bottom: 30px;
-  ${props => props.removeBottomMargin && `margin-bottom: 0px;`}
+  ${(props) => props.removeBottomMargin && `margin-bottom: 0px;`}
   width: 100%;
 `
 
@@ -146,77 +147,63 @@ export const SignUp = styled.div`
 `
 
 export default function SignIn(props) {
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  })
-
-  function handleChange(event) {
-    const { name, value } = event.target
-    setState({ ...state, [name]: value })
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault()
-    const { email, password } = state
-    try {
-      await auth.signInWithEmailAndPassword(email, password)
-      setState({ ...state, email: '', password: '' })
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const { email, password } = props
+  const { handleCredentialsChange, handleCredentialsSubmit } = props
 
   return (
-    <MainContent>
-      <LoginBox>
-        <GiBrain color='#67c744' size='10em' />
-        <LoginHeader>
-          Log in to SmartBrain
-        </LoginHeader>
-        <InnerLoginBox>
-          {/* <Button text='Continue with Facebook'>
+    <Route path='/signin'>
+      <MainContent>
+        <LoginBox>
+          <GiBrain color='#67c744' size='10em' />
+          <LoginHeader>Log in to SmartBrain</LoginHeader>
+          <InnerLoginBox>
+            {/* <Button text='Continue with Facebook'>
             <FaFacebookF color='#b3d9fc' />
           </Button>
           <Button google text='Continue with Google'>
             <FaGoogle color='#29303b' />
           </Button> */}
-          {/* <div>
+            {/* <div>
             <GiBrain color='#67c744' />
           </div> */}
-          <FormField
-            label='Email'
-            placeholder='Email'
-            name='email'
-            value={state.email}
-            onChange={handleChange}
-          />
-          <FormField
-            label='Password'
-            placeholder='Password'
-            name='password'
-            value={state.password}
-            onChange={handleChange}
-          />
-          <ButtonContainer>
-            <SubmitRow>
-              <SubmitButton
-                type='button'
-                value='Log in'
-                onSubmit={handleSubmit}
-              />
-              <span>or</span>{' '}
-              <ForgotPassword onClick={() => {}}>
-                Forgot password
-              </ForgotPassword>
-            </SubmitRow>
-          </ButtonContainer>
-        </InnerLoginBox>
-        <LoginBoxFooter>
-          Don't have an account?
-          <SignUp onClick={() => props.history.push('/signup')}>Sign up</SignUp>
-        </LoginBoxFooter>
-      </LoginBox>
-    </MainContent>
+            <FormField
+              label='Email'
+              placeholder='Email'
+              type='text'
+              name='email'
+              value={email}
+              onChange={handleCredentialsChange}
+            />
+            <FormField
+              label='Password'
+              placeholder='Password'
+              type='password'
+              name='password'
+              value={password}
+              onChange={handleCredentialsChange}
+            />
+            <ButtonContainer>
+              <SubmitRow>
+                <SubmitButton
+                  type='button'
+                  value='Log in'
+                  onSubmit={handleCredentialsSubmit}
+                />
+                <span>or</span>{' '}
+                <ForgotPassword onClick={() => {}}>
+                  Forgot password
+                </ForgotPassword>
+              </SubmitRow>
+            </ButtonContainer>
+          </InnerLoginBox>
+          <LoginBoxFooter>
+            Don't have an account?
+            <SignUp onClick={() => props.history.push('/signup')}>
+              Sign up
+            </SignUp>
+          </LoginBoxFooter>
+        </LoginBox>
+      </MainContent>
+    </Route>
   )
 }
