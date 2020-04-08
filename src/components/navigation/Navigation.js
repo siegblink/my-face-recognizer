@@ -28,8 +28,6 @@ const LogoText = styled.span`
 `
 
 const ButtonWrapper = styled.div`
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
   color: #3c3b37;
   font-weight: 400;
   line-height: 1.4;
@@ -39,9 +37,7 @@ const ButtonWrapper = styled.div`
   text-decoration: none;
 `
 
-const Button = styled.a`
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
+const Button = styled.span`
   box-sizing: border-box;
   text-decoration: none;
   position: relative;
