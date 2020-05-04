@@ -78,9 +78,9 @@ function Navigation(props) {
           <ButtonWrapper as={Link} to='/signin'>
             <Button>Log in</Button>
           </ButtonWrapper>
-          <ButtonWrapper as={Link} to='/signup'>
+          {/* <ButtonWrapper as={Link} to='/signup'>
             <Button signup>Sign up</Button>
-          </ButtonWrapper>
+          </ButtonWrapper> */}
         </div>
       )}
     </Nav>
