@@ -1,8 +1,5 @@
 import React from 'react'
 import styles from './Home.module.css'
-// import Rank from '../rank/Rank'
-// import FaceRecognition from '../faceRecognition/FaceRecognition'
-// import ImageLinkForm from '../imageLinkForm/ImageLinkForm'
 
 export default function Home(props) {
   return (
@@ -20,7 +17,7 @@ export default function Home(props) {
           </li>
         </ul>
       </section>
-      <section className={styles.main}>Main area</section>
+      <section className={styles.main}>Home</section>
     </div>
   )
 }
