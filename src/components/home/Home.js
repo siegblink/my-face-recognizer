@@ -9,15 +9,27 @@ export default function Home(props) {
           <li>
             <a href='/home'>Home</a>
           </li>
+        </ul>
+        <ul>
           <li>
-            <a href='/profile'>Profile</a>
+            <a href='/profile'>Siegfred Balona</a>
           </li>
           <li>
             <a href='/logout'>Logout</a>
           </li>
         </ul>
       </section>
-      <section className={styles.main}>Home</section>
+      <section className={styles.main}>
+        <div>
+          <div className={styles.textField}>
+            <label htmlFor='url'>Enter image URL</label>
+            <input type='text' id='url' />
+          </div>
+        </div>
+        <div>
+          
+        </div>
+      </section>
     </div>
   )
 }

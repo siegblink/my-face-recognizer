@@ -7,6 +7,8 @@
 
 .sidebar {
   background-color: hsl(0, 0%, 98%);
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 .sidebar ul * + * {
@@ -24,7 +26,32 @@
   color: inherit;
 }
 
+.sidebar ul:last-of-type {
+  margin-bottom: 1rem;
+}
+
 .main {
-  padding: 1rem 1.6rem;
+  padding: 1.6rem;
   background-color: hsl(0, 0%, 98%);
+  overflow-y: scroll;
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: 1fr 2fr;
+}
+
+.main > div + div {
+  background-color: hsl(0, 0%, 95%);
+}
+
+.main .textField {
+  display: grid;
+}
+
+.main .textField * + * {
+  margin-top: 0.5rem;
+}
+
+.main .textField input {
+  padding: 0.75rem 0.5rem;
+  font-size: 0.875rem;
 }
