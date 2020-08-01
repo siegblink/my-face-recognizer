@@ -1,68 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import styled from 'styled-components'
-import { BrowserRouter as Router, withRouter } from 'react-router-dom'
-import { auth, firestore } from './firebase/firebase-utils'
-import App from './App'
+import { ThemeProvider } from '@material-ui/core/styles'
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles'
+import App from './components/App'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 
-const Container = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
-
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  color: #444;
-`
-
-function Root({ history }) {
-  const [user, setUser] = useState({})
-  const [isSignedIn, setIsSignedIn] = useState(false)
-
-  const loadData = useCallback(
-    async function (userAuth) {
-      if (userAuth) {
-        const userRef = firestore.collection('users').doc(`${userAuth.uid}`)
-        userRef.onSnapshot(function (snapshot) {
-          setUser({ id: snapshot.id, ...snapshot.data() })
-        })
-        setIsSignedIn(true)
-        history.push('/')
-      } else {
-        setUser({})
-        setIsSignedIn(false)
-        history.push('/signin')
-      }
-    },
-    [history]
-  )
-
-  useEffect(
-    function () {
-      const unsubscribeFromAuth = auth.onAuthStateChanged(loadData)
-      return function () {
-        if (unsubscribeFromAuth) unsubscribeFromAuth()
-      }
-    },
-    [loadData]
-  )
-
-  console.log(user)
-  return (
-    <Container>
-      <App user={user} isSignedIn={isSignedIn} />
-    </Container>
-  )
-}
-
-const RootWithAuth = withRouter(Root)
+const theme = createMuiTheme()
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <RootWithAuth />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
