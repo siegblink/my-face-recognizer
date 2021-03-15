@@ -1,113 +1,104 @@
-// import React, { useState } from 'react'
-// import { GiBrain } from 'react-icons/gi'
-// import { MainContent, LoginBox } from '../signIn/SignIn'
-// import { LoginHeader, InnerLoginBox } from '../signIn/SignIn'
-// import { ButtonContainer, SubmitRow } from '../signIn/SignIn'
-// import { SubmitButton } from '../signIn/SignIn'
-// import { LoginBoxFooter, SignUp } from '../signIn/SignIn'
-// import { FormField } from '../common'
-// import { auth, firestore } from '../../firebase/firebase-utils'
-// import md5 from 'md5'
+import React, { Component } from 'react';
 
-// export default function Register(props) {
-//   const [state, setState] = useState({
-//     email: '',
-//     password: '',
-//     name: '',
-//   })
+class Register extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      name: ''
+    };
+  }
 
-//   function handleChange(event) {
-//     const { name, value } = event.target
-//     setState({ ...state, [name]: value })
-//   }
+  onNameChange = event => this.setState({ name: event.target.value });
 
-//   async function handleSubmit(event) {
-//     const { email, password, name } = state
-//     event.preventDefault()
+  onEmailChange = event => this.setState({ email: event.target.value });
 
-//     try {
-//       const createdUser = await auth.createUserWithEmailAndPassword(
-//         email,
-//         password
-//       )
-//       createdUser.user.updateProfile({
-//         displayName: name,
-//         photoURL: `http://gravatar.com/gravatar/${md5(
-//           createdUser.user.email
-//         )}?d=identicon`,
-//       })
+  onPasswordChange = event => this.setState({ password: event.target.value });
 
-//       const userRef = firestore
-//         .collection('users')
-//         .doc(`${createdUser.user.uid}`)
-//       const snapshot = await userRef.get()
+  onSubmitSignIn = () => {
+    const { email, password, name } = this.state;
 
-//       if (!snapshot.exists) {
-//         const { email, displayName, photoURL } = createdUser.user
-//         const dateCreated = new Date()
-//         try {
-//           await userRef.set({ displayName, email, dateCreated, photoURL })
-//         } catch (error) {
-//           console.error(error)
-//         }
-//       }
+    fetch('https://nameless-depths-48950.herokuapp.com/register', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        password,
+        name
+      })
+    })
+      .then(response => response.json())
+      .then(user => {
+        if (user.id) {
+          this.props.loadUser(user);
+          this.props.onRouteChange('home');
+        }
+      });
+  };
 
-//       setState({ ...state, email: '', password: '', name: '' })
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
+  render() {
+    return (
+      <div className='form-wrapper'>
+        <article className=' center'>
+          <main className='pa4 black-80'>
+            <div className='measure'>
+              <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
+                <legend className='f1 fw6 ph0 mh0'>Register</legend>
+                <div className='mt3'>
+                  <label className='db fw6 lh-copy f6' htmlFor='name'>
+                    Name
+                  </label>
+                  <input
+                    onChange={this.onNameChange}
+                    className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                    type='text'
+                    name='name'
+                    id='name'
+                  />
+                </div>
+                <div className='mt3'>
+                  <label
+                    className='db fw6 lh-copy f6'
+                    htmlFor='email-address'
+                  >
+                    Email
+                  </label>
+                  <input
+                    onChange={this.onEmailChange}
+                    className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                    type='email'
+                    name='email-address'
+                    id='email-address'
+                  />
+                </div>
+                <div className='mv3'>
+                  <label className='db fw6 lh-copy f6' htmlFor='password'>
+                    Password
+                  </label>
+                  <input
+                    onChange={this.onPasswordChange}
+                    className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                    type='password'
+                    name='password'
+                    id='password'
+                  />
+                </div>
+              </fieldset>
+              <div className=''>
+                <input
+                  onClick={this.onSubmitSignIn}
+                  className='b ph3 pv2 input-reset ba b--black bg-transparent pointer f6 dib'
+                  type='submit'
+                  value='Register'
+                />
+              </div>
+            </div>
+          </main>
+        </article>
+      </div>
+    )
+  }
+}
 
-//   return (
-//     <MainContent>
-//       <LoginBox>
-//         <GiBrain color='#67c744' size='10em' />
-//         <LoginHeader>Get an account.</LoginHeader>
-//         <InnerLoginBox>
-//           <FormField
-//             label='Name'
-//             placeholder='Full name'
-//             name='name'
-//             // value={state.email}
-//             // onChange={handleChange}
-//           />
-//           <FormField
-//             label='Email'
-//             placeholder='Email'
-//             name='email'
-//             // value={state.email}
-//             // onChange={handleChange}
-//           />
-//           <FormField
-//             label='Password'
-//             placeholder='Password'
-//             name='password'
-//             // value={state.password}
-//             // onChange={handleChange}
-//           />
-//           <FormField
-//             label='Password'
-//             placeholder='Confirm password'
-//             name='password'
-//             // value={state.password}
-//             // onChange={handleChange}
-//           />
-//           <ButtonContainer>
-//             <SubmitRow>
-//               <SubmitButton
-//                 removeBottomMargin
-//                 type='button'
-//                 value='Continue'
-//                 // onSubmit={handleSubmit}
-//               />
-//             </SubmitRow>
-//           </ButtonContainer>
-//         </InnerLoginBox>
-//         <LoginBoxFooter>
-//           Already have an account?{' '}
-//           <SignUp onClick={() => props.history.push('/signin')}>Sign in</SignUp>
-//         </LoginBoxFooter>
-//       </LoginBox>
-//     </MainContent>
-//   )
-// }
+export default Register;

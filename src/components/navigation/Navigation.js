@@ -1,34 +1,31 @@
-import React from 'react'
-import styles from './Navigation.module.css'
-import { GiBrain } from 'react-icons/gi'
-import { Link, withRouter } from 'react-router-dom'
-import { auth } from '../../firebase/firebase-utils'
+import React from 'react';
+import Logo from '../../components/logo/Logo';
 
-function Navigation(props) {
-  return (
-    <nav className={styles.navbar}>
-      <div>
-        <GiBrain color='#67c744' />
-        <span
-          className={styles.logoText}
-          onClick={() => props.history.push('/signin')}>
-          SmartBrain
-        </span>
-      </div>
-      {props.isSignedIn ? (
-        <Link
-          className={styles.buttonContainer}
-          to='/signin'
-          onClick={() => auth.signOut()}>
-          <span className={styles.button}>Log out</span>
-        </Link>
-      ) : (
-        <Link className={styles.buttonContainer} to='/signin'>
-          <span className={styles.button}>Log in</span>
-        </Link>
-      )}
-    </nav>
-  )
-}
+const Navigation = ({ onRouteChange, isSignedIn }) => {
+  if (isSignedIn) {
+    return (
+      <nav className="nav">
+        <Logo />
+        <p onClick={() => onRouteChange('signout')} className="nav-text">
+          Sign Out
+        </p>
+      </nav>
+    );
+  } else {
+    return (
+      <nav className="signin-nav-bar">
+        <Logo />
+        <div className="signin-nav-bar-wrapper">
+          <p onClick={() => onRouteChange('signin')} className="nav-text signin-text">
+            Sign In
+          </p>
+          <p onClick={() => onRouteChange('register')} className="nav-text register-text">
+            Register
+          </p>
+        </div>
+      </nav>
+    );
+  }
+};
 
-export default withRouter(Navigation)
+export default Navigation;

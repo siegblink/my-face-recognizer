@@ -1,14 +1,3 @@
-.image-area {
-  height: 72vh;
-  width: 100%;
-  padding: 1.5rem;
-  border-radius: 4px;
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .bounding-box {
   position: absolute;
   box-shadow: 0 0 0 3px #149df2 inset;
